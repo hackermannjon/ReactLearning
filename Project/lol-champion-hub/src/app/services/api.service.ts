@@ -8,7 +8,8 @@ import { Champion } from '../../../models/champion.model';
   providedIn: 'root',
 })
 export class ApiService {
-  private readonly apiUrl = 'http://localhost:3000';
+  private readonly apiUrl =
+    'https://lol-api-jv-santos.joao-santos-3563.workers.dev';
 
   constructor(private http: HttpClient) {}
 

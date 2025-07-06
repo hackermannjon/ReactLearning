@@ -21,7 +21,9 @@ const initialState: ChampionsState = {
 export const fetchAllChampions = createAsyncThunk(
 	"champions/fetchAll",
 	async () => {
-		const response = await fetch("http://localhost:3000/champions");
+		const response = await fetch(
+			"https://lol-api-jv-santos.joao-santos-3563.workers.dev/champions"
+		);
 		if (!response.ok) {
 			throw new Error("Failed to fetch champions");
 		}
