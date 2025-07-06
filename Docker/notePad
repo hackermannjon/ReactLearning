@@ -1,0 +1,27 @@
+Funciona no meu computador!
+
+VM de Operational Sistem,
+
+Dockerfile: Code pro docker de como criar a imagem
+
+Image: Pacote com tudo que precisa para rodar a aplicação (código, runtime, bibliotecas, dependências)
+
+Container: Instância de uma imagem em execução - ambiente isolado
+
+Docker Compose: Ferramenta para definir e executar aplicações multi-container
+
+Comandos básicos:
+
+-   docker build: criar imagem
+-   docker run: executar container
+-   docker ps: listar containers em execução
+-   docker images: listar imagens
+-   docker pull: baixar imagem do registry
+-   docker push: enviar imagem para registry
+
+Benefícios:
+
+-   Portabilidade ("funciona na minha máquina" deixa de ser problema)
+-   Isolamento de aplicações
+-   Facilita deployment
+-   Consistência entre ambientes (dev, test, prod)
