@@ -1,0 +1,100 @@
+# Nest.js - Resumo
+
+## Tipos de Aplicação:
+
+-   **HTTP Server App**: API REST tradicional
+-   **Microservice App**: Pode escolher UDP ou TCP para comunicação
+-   **Standalone App**: Aplicação que roda sem servidor HTTP
+
+## Modules (Módulos):
+
+-   **Root Module**: Módulo principal, raiz da árvore de dependências
+-   Organiza a aplicação em blocos funcionais
+-   Usa decorators para configuração
+
+```typescript
+import { Module } from "@nestjs/common";
+
+@Module({
+	imports: [OutrosModulos],
+	controllers: [AppController],
+	providers: [AppService],
+})
+export class AppModule {}
+```
+
+## Controllers (Controladores):
+
+-   Responsáveis pelas **rotas** e **endpoints**
+-   Recebem requisições HTTP e retornam respostas
+
+```typescript
+@Controller("users")
+export class UserController {
+	@Get()
+	getUsers() {
+		return this.userService.findAll();
+	}
+
+	@Post()
+	createUser(@Body() userData) {
+		return this.userService.create(userData);
+	}
+}
+```
+
+## Providers (Provedores):
+
+-   Classes que podem ser **injetadas** como dependência
+-   Geralmente contêm a **lógica de negócio**
+-   Marcados com `@Injectable()`
+
+```typescript
+@Injectable()
+export class UserService {
+	findAll() {
+		return ["user1", "user2"];
+	}
+}
+```
+
+## Dependency Injection (DI):
+
+-   Nest injeta automaticamente as dependências
+-   Declara no constructor do controller/service
+
+```typescript
+@Controller("users")
+export class UserController {
+	constructor(private userService: UserService) {}
+
+	@Get()
+	getUsers() {
+		return this.userService.findAll();
+	}
+}
+```
+
+## Decorators Importantes:
+
+-   `@Module()`: Define um módulo
+-   `@Controller()`: Define um controlador
+-   `@Injectable()`: Marca como provider injetável
+-   `@Get()`, `@Post()`, `@Put()`, `@Delete()`: HTTP methods
+-   `@Body()`: Pega dados do corpo da requisição
+-   `@Param()`: Pega parâmetros da URL
+
+## Fluxo Básico:
+
+1. **Request** chega no Controller
+2. Controller chama o **Service** (Provider)
+3. Service processa a **lógica de negócio**
+4. Controller retorna a **Response**
+
+## Conceitos que Adicionei:
+
+-   **Dependency Injection**: Como funciona a injeção automática
+-   **Decorators para HTTP**: @Body(), @Param() para capturar dados
+-   **Estrutura do Module**: imports, controllers, providers
+-   **Fluxo de Request/Response**: Como uma requisição flui pela aplicação
+-   **Exemplos de código**: Mais fácil de entender na prática
