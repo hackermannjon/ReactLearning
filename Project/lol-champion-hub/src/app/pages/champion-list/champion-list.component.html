@@ -1,1 +1,25 @@
-<p>champion-list works!</p>
+<div class="container">
+  <h1>LoL Champion Hub</h1>
+
+  <div *ngIf="!isLoading">
+    <div class="champions-grid">
+      <a
+        *ngFor="let champion of champions"
+        class="champion-card"
+        [routerLink]="['/champion', champion.id]"
+      >
+        <img
+          class="champion-image"
+          [src]="ddragonBaseUrl + champion.image.full"
+          [alt]="champion.name"
+        />
+        <h3 class="champion-name">{{ champion.name }}</h3>
+        <p class="champion-title">{{ champion.title }}</p>
+      </a>
+    </div>
+  </div>
+
+  <div *ngIf="isLoading">
+    <p class="loading-message">Carregando campeões...</p>
+  </div>
+</div>

@@ -8,7 +8,7 @@ import { Champion } from '../../../models/champion.model';
   providedIn: 'root',
 })
 export class ApiService {
-  private readonly apiUrl = 'http://localhost:3001';
+  private readonly apiUrl = 'http://localhost:3000';
 
   constructor(private http: HttpClient) {}
 

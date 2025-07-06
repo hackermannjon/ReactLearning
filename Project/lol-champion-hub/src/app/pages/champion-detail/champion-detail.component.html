@@ -1,1 +1,35 @@
-<p>champion-detail works!</p>
+<div class="container">
+  <div *ngIf="isLoading" class="loading">
+    <p>Carregando campeão...</p>
+  </div>
+
+  <div *ngIf="error" class="error">
+    <p>{{ error }}</p>
+    <a routerLink="/" class="back-link">Voltar à lista</a>
+  </div>
+
+  <div *ngIf="champion && !isLoading" class="champion-detail">
+    <div class="champion-header">
+      <img
+        [src]="ddragonBaseUrl + champion.image.full"
+        [alt]="champion.name"
+        class="champion-image"
+      />
+      <div class="champion-info">
+        <h1>{{ champion.name }}</h1>
+        <h2>{{ champion.title }}</h2>
+        <div class="tags">
+          <span *ngFor="let tag of champion.tags" class="tag">
+            {{ tag }}
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="champion-description">
+      <p>{{ champion.blurb }}</p>
+    </div>
+
+    <a routerLink="/" class="back-link">← Voltar à lista</a>
+  </div>
+</div>
