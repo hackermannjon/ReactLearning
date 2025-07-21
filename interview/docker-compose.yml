@@ -10,7 +10,7 @@ services:
       context: ./backend
       dockerfile: Dockerfile # Aponta para o Dockerfile do backend
     container_name: backend_app_dev
-    command: npm run start:dev # Comando que ativa o hot-reload do NestJS
+    command: sh -c "npm run start:dev" # Comando que ativa o hot-reload do NestJS
     ports:
       - "3000:3000" # Mapeia a porta do contêiner para a porta do seu PC
     volumes:
