@@ -1,7 +1,7 @@
 # Arquivo: frontend/Dockerfile
 
 # Estágio 1: Build - Onde o código React é transformado em arquivos estáticos
-FROM node:18-slim AS build
+FROM node:20-slim AS build
 
 WORKDIR /app
 
