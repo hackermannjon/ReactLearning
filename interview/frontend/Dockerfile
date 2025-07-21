@@ -1,25 +1,23 @@
-# Arquivo: frontend/Dockerfile
+# Arquivo: frontend/Dockerfile (Versão para Desenvolvimento)
 
-# Estágio 1: Build - Onde o código React é transformado em arquivos estáticos
-FROM node:20-slim AS build
+# Usamos a mesma imagem Node que funcionou para o build
+FROM node:20-slim
 
+# Define o diretório de trabalho
 WORKDIR /app
 
-COPY package.json .
+# Copia os arquivos de dependência para cache
+COPY package*.json ./
+
+# Instala TODAS as dependências
 RUN npm install
 
+# Copia o resto do código. O volume vai manter isso sincronizado.
 COPY . .
-# Este comando gera uma pasta 'dist' com os arquivos otimizados para produção
-RUN npm run build
 
-# Estágio 2: Serve - Onde os arquivos estáticos são servidos por um servidor web leve
-# Nginx é um servidor web de alta performance, perfeito para isso
-FROM nginx:stable-alpine
+# O Vite (servidor de dev do React) por padrão roda na porta 5173
+EXPOSE 5173
 
-# Copia os arquivos da pasta 'dist' do estágio anterior para a pasta padrão do Nginx
-COPY --from=build /app/dist /usr/share/nginx/html
-
-# Expõe a porta 80, que é a porta padrão para HTTP
-EXPOSE 80
-
-# O Nginx inicia automaticamente, então não precisamos de um comando CMD
+# Comando padrão para iniciar. Será sobreposto pelo docker-compose.dev.yml,
+# mas é bom ter aqui.
+CMD ["npm", "run", "dev"]

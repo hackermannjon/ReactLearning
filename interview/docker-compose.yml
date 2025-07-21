@@ -1,44 +1,68 @@
-# Arquivo: docker-compose.yml
+# Arquivo: docker-compose.yml (Configuração Unificada para Desenvolvimento)
+
+# NOTA: Este arquivo está configurado para um ambiente de DESENVOLVIMENTO.
+# Ele prioriza o hot-reload e a facilidade de depuração.
 
 services:
-  # Serviço do Banco de Dados PostgreSQL
-  postgres-db:
-    image: postgres:14-alpine
-    container_name: postgres_db
-    restart: always
-    environment:
-      POSTGRES_USER: admin
-      POSTGRES_PASSWORD: admin
-      POSTGRES_DB: interview_db
-    ports:
-      - "5432:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-
-  # Serviço do Backend NestJS (para produção)
+  # --- Serviço do Backend (NestJS) ---
   backend:
-    build: ./backend
-    container_name: backend_app
+    build:
+      context: ./backend
+      dockerfile: Dockerfile # Aponta para o Dockerfile do backend
+    container_name: backend_app_dev
+    command: npm run start:dev # Comando que ativa o hot-reload do NestJS
     ports:
-      - "3001:3000"
+      - "3000:3000" # Mapeia a porta do contêiner para a porta do seu PC
+    volumes:
+      # Sincroniza o código local com o contêiner para o hot-reload funcionar.
+      # Qualquer alteração no seu PC reflete instantaneamente no contêiner.
+      - ./backend:/usr/src/app
+      # Volume anônimo para evitar que a pasta node_modules local
+      # sobrescreva a que foi instalada dentro do contêiner. Essencial!
+      - /usr/src/app/node_modules
+    depends_on:
+      - postgres-db # Garante que o banco de dados inicie antes do backend
     environment:
+      # Variáveis de ambiente para conectar com o banco de dados
       DB_HOST: postgres-db
       DB_PORT: 5432
       DB_USER: admin
       DB_PASSWORD: admin
       DB_DATABASE: interview_db
-    depends_on:
-      - postgres-db
+    restart: unless-stopped
 
-  # Serviço do Frontend React (para produção)
+  # --- Serviço do Frontend (React + Vite) ---
   frontend:
-    build: ./frontend
-    container_name: frontend_app
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile # Aponta para o Dockerfile do frontend
+    container_name: frontend_app_dev
+    command: npm run dev # Comando que inicia o servidor de desenvolvimento do Vite
     ports:
-      - "8080:80"
-    depends_on:
-      - backend
+      - "5173:5173" # Mapeia a porta do Vite para o seu PC
+    volumes:
+      # Sincroniza o código local com o contêiner para o hot-reload.
+      - ./frontend:/app
+      # Volume anônimo para a pasta node_modules, mesma razão do backend.
+      - /app/node_modules
+    restart: unless-stopped
 
-# Declara o volume nomeado para persistência dos dados
+  # --- Serviço do Banco de Dados (PostgreSQL) ---
+  postgres-db:
+    image: postgres:14-alpine
+    container_name: postgres_db_dev
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: interview_db
+    ports:
+      - "5432:5432" # Expõe a porta do PostgreSQL para acesso direto (ex: DBeaver)
+    volumes:
+      # Volume nomeado para que os dados do banco não se percam
+      # ao recriar o contêiner.
+      - postgres_data_dev:/var/lib/postgresql/data
+    restart: unless-stopped
+
+# Declara o volume nomeado para persistência dos dados do PostgreSQL
 volumes:
-  postgres_data:
+  postgres_data_dev:
