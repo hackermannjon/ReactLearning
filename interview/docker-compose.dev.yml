@@ -1,0 +1,32 @@
+# Arquivo: docker-compose.dev.yml
+
+services:
+  backend:
+    build:
+      context: ./backend
+      target: development # Especifica que queremos usar o estágio 'development' do Dockerfile
+    volumes:
+      - ./backend:/usr/src/app
+      - /usr/src/app/node_modules
+    command: npm run start:dev
+    ports:
+      - "3001:3000"
+    environment:
+      DB_HOST: postgres-db
+      DB_PORT: 5432
+      DB_USER: admin
+      DB_PASSWORD: admin
+      DB_DATABASE: interview_db
+    depends_on:
+      - postgres-db
+
+  frontend:
+    build:
+      context: ./frontend
+      target: build # Especifica que queremos usar o estágio 'build' do Dockerfile
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    command: npm run dev
+    ports:
+      - "8081:5173"
