@@ -30,3 +30,6 @@ services:
     command: npm run dev
     ports:
       - "8081:5173"
+    environment:
+      # Esta linha instrui o Node a usar o modo de compatibilidade de criptografia
+      - NODE_OPTIONS=--openssl-legacy-provider
