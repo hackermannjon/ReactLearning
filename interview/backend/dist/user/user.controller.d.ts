@@ -1,6 +1,7 @@
+import { CreateUserDTO } from "./dto/create-user.dto";
 export declare class UserController {
-    create(body: any): Promise<{
-        body: any;
+    create(body: CreateUserDTO): Promise<{
+        body: CreateUserDTO;
     }>;
     read(): Promise<{
         users: never[];
