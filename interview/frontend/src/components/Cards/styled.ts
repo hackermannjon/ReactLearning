@@ -5,7 +5,7 @@ interface ContainerProps {
 }
 
 export const Container = styled.div<ContainerProps>`
-  background-color: rebeccapurple;
+  background-color: ${({ isActive }) => (isActive ? `rebeccapurple` : `blue`)};
   width: 15rem;
   height: 20rem;
   display: flex;
