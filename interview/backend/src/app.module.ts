@@ -4,13 +4,17 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { UserModule } from './user/user.module';
 
-// Valida as variáveis de ambiente essenciais antes de iniciar o módulo
-const requiredEnvVars = ['DB_HOST', 'DB_PORT', 'DB_USER', 'DB_PASSWORD', 'DB_DATABASE'];
+const requiredEnvVars = [
+  'DB_HOST',
+  'DB_PORT',
+  'DB_USER',
+  'DB_PASSWORD',
+  'DB_DATABASE',
+];
 for (const envVar of requiredEnvVars) {
   if (!process.env[envVar]) {
-    throw new Error(`Erro Crítico: A variável de ambiente ${envVar} não foi definida.`);
+    throw new Error(`Error ${envVar}.`);
   }
 }
 
@@ -26,7 +30,6 @@ for (const envVar of requiredEnvVars) {
       autoLoadEntities: true,
       synchronize: true, // Em desenvolvimento, cria as tabelas automaticamente.
     }),
-    UserModule
   ],
   controllers: [AppController],
   providers: [AppService],

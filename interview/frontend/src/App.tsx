@@ -1,12 +1,6 @@
-import './App.css'
-import Blackjack from './pages/casino/Blackjack'
+import './App.css';
 function App() {
-  return (
-    <>
-     <Blackjack></Blackjack>
-     
-    </>
-  )
+  return <>This is a React React!</>;
 }
 
-export default App
+export default App;
