@@ -1,10 +1,6 @@
-# Arquivo: backend/.dockerignore
 
-# Ignora a pasta de dependências, pois ela será instalada dentro do contêiner
 node_modules
 
-# Ignora a pasta de build, se ela existir localmente
 dist
 
-# Ignora arquivos de ambiente local
 .env
