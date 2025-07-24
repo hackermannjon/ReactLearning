@@ -11,10 +11,16 @@ const common_1 = require("@nestjs/common");
 const app_controller_1 = require("./app.controller");
 const app_service_1 = require("./app.service");
 const typeorm_1 = require("@nestjs/typeorm");
-const requiredEnvVars = ['DB_HOST', 'DB_PORT', 'DB_USER', 'DB_PASSWORD', 'DB_DATABASE'];
+const requiredEnvVars = [
+    'DB_HOST',
+    'DB_PORT',
+    'DB_USER',
+    'DB_PASSWORD',
+    'DB_DATABASE',
+];
 for (const envVar of requiredEnvVars) {
     if (!process.env[envVar]) {
-        throw new Error(`Erro Crítico: A variável de ambiente ${envVar} não foi definida.`);
+        throw new Error(`Error ${envVar}.`);
     }
 }
 let AppModule = class AppModule {

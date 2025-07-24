@@ -1,1 +1,30 @@
-POST http://localhost:3000/
+Post  http://localhost:3000/users
+Content-Type: application/json 
+
+{
+    "name": "Joao",
+    "email": "joao@santos",
+    "password": "12456"    
+}
+
+# POST http://localhost:3000/users
+# Content-Type: application/json
+# {
+#   "name": "João Silva",
+#   "email": "joao@email.com"
+# }
+
+# Exemplo de READ (GET)
+# GET http://localhost:3000/users/1
+
+# Exemplo de UPDATE (PUT)
+# PUT http://localhost:3000/users/1
+# Content-Type: application/json
+# {
+#   "name": "João Silva Atualizado",
+#   "email": "joao.novo@email.com"
+# }
+
+# Exemplo de DELETE (DELETE)
+# DELETE http://localhost:3000/users/1
+
