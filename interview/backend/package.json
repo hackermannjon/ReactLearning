@@ -9,7 +9,7 @@
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
-    "start:dev": "nodemon --delay 5 -L --watch src --ext ts --exec 'fuser -k 3000/tcp || true && nest start' --signal SIGTERM",
+    "start:dev": "nest start --watch",
     "dev": "nest start --watch --signal SIGTERM",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",

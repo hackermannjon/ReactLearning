@@ -1,18 +1,11 @@
-import styled from "styled-components";
-import React from "react";
-
-
-
+import styled from 'styled-components';
+import React from 'react';
 
 export const Container = styled.button`
+  background-color: blue;
+  padding: 2rem;
 
-    background-color: blue;
-    padding: 2rem;
-    align-items: center;
-    justify-content: center;
-
-
-    &:hover{
-        background-color: blueviolet;
-    }
-`
+  &:hover {
+    background-color: blueviolet;
+  }
+`;

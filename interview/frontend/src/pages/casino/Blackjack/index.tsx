@@ -1,28 +1,21 @@
-import React from "react";
-import Button from "../../../components/Button";
+import React, { useState } from 'react';
+import Button from '../../../components/Button';
+import Card from '../../../components/Cards';
+import * as Styled from './styled';
 
-
-interface BlackjackProps {
-
-
-
-}
-
-
+interface BlackjackProps {}
 
 const Blackjack = () => {
+  const [isActive, setIsActive] = useState(false);
 
-
-
-
-return (
+  return (
     <div>
-        <Button text="bid" onClick={()=>console.log('jujutsu')}></Button>
+      <Styled.Container>
+        <Card isActive={isActive} value={2}></Card>
+        <Button text="bid" onClick={() => setIsActive(!isActive)}></Button>
+      </Styled.Container>
     </div>
-)
-
-
-}
-
+  );
+};
 
 export default Blackjack;
